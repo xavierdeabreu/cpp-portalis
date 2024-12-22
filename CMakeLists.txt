@@ -30,5 +30,6 @@ target_link_libraries(${PROJECT_NAME}
     spdlog::spdlog
 )
 
-# Include directories for the target (for consumers of the project)
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/include)
+# Enable testing
+enable_testing()
+add_subdirectory(tests)
