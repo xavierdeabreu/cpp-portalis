@@ -1,5 +1,8 @@
 # Add test target
-add_executable(UnitTests MqttClientTest.cpp)
+add_executable(UnitTests 
+    MqttClientTest.cpp
+    ../src/MqttClient.cpp
+)
 
 # Link test libraries
 target_link_libraries(UnitTests
