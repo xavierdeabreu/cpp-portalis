@@ -8,11 +8,12 @@
 class MqttClient {
 public:
     MqttClient(const std::string& serverAddress, const std::string& clientId, const std::string& certsDir);
+    virtual ~MqttClient() = default; // virtual destructure for proper cleanup 
 
-    void connect();
-    void subscribe(const std::string& topic, int qos);
-    void publish(const std::string& topic, const std::string& payload, int qos);
-    void disconnect();
+    virtual void connect();
+    virtual void subscribe(const std::string& topic, int qos);
+    virtual void publish(const std::string& topic, const std::string& payload, int qos);
+    virtual void disconnect();
 
 private:
     std::string serverAddress;

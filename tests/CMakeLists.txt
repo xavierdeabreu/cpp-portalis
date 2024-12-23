@@ -1,15 +1,22 @@
 # Add test target
 add_executable(UnitTests 
-    MqttClientTest.cpp
-    ../src/MqttClient.cpp
+    ${CMAKE_SOURCE_DIR}/tests/MqttClientTest.cpp
+    ${CMAKE_SOURCE_DIR}/src/MqttClient.cpp
 )
 
 # Link test libraries
 target_link_libraries(UnitTests
+    gmock
+    gmock_main
     gtest
     gtest_main
     PahoMqttCpp::paho-mqttpp3
     spdlog::spdlog
+)
+
+# Inlcude directories for test dependencies
+target_include_directories(UnitTests PRIVATE
+    ../include
 )
 
 # Add tests to CTest

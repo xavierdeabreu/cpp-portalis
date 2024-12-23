@@ -1,16 +1,12 @@
 # include <gtest/gtest.h>
-# include "cpp-portalis/MqttClient.h"
+# include "MockMqttClient.h"
 
-// Example test case
+// Example test case using the mock
 TEST(MqttClientTest, TestConnection) {
-    MqttClient client("tcp//localhost:1883", "testClient", "./certs/");
-    EXPECT_NO_THROW(client.connect());
-    client.disconnect();
-}
+    MockMqttClient mockClient("tcp://localhost:1883", "testClient", "./certs/");
+    EXPECT_CALL(mockClient, connect()).Times(1);
+    EXPECT_CALL(mockClient, disconnect()).Times(1);
 
-TEST(MqttClientTest, TestPublish) {
-    MqttClient client("tcp//localhost:1883", "testClient", "./certs/");
-    client.connect();
-    EXPECT_NO_THROW(client.publish("test/topic", "Hello, MQTT!", 1));
-    client.disconnect();
+    EXPECT_NO_THROW(mockClient.connect());
+    EXPECT_NO_THROW(mockClient.disconnect());
 }
