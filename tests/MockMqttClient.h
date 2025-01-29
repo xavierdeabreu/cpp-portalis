@@ -11,7 +11,8 @@ class MockMqttClient : public MqttClient {
 
         MOCK_METHOD(void, connect, (), (override));
         MOCK_METHOD(void, disconnect, (), (override));
+        MOCK_METHOD(void, subscribe, (const std::string& topic, int qos), (override));
         MOCK_METHOD(void, publish, (const std::string& topic, const std::string& payload, int qos), (override));
 };
 
-#endif // MOCK_MQTT_CLIENT_H
+#endif // MOCK_MQTT_CLIENT_Hß
