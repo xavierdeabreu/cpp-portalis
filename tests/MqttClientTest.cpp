@@ -45,3 +45,14 @@ TEST(MttClientTest, TestSSLSetup) {
 
     EXPECT_NO_THROW(mockClient.getSslOptions());
 }
+
+// test Reconnection Logic
+TEST(MqttClientTest, TestReconnection) {
+    MockMqttClient mockClient("tcp://localhost:1883", "testClient", "./certs/");
+
+    EXPECT_CALL(mockClient, disconnect()).Times(1);
+    EXPECT_CALL(mockClient, connect()).Times(1);
+
+    EXPECT_NO_THROW(mockClient.disconnect());
+    EXPECT_NO_THROW(mockClient.connect());
+}
