@@ -15,6 +15,10 @@ public:
     virtual void publish(const std::string& topic, const std::string& payload, int qos);
     virtual void disconnect();
 
+    // getters to access private members for unit testing
+    virtual const mqtt::ssl_options& getSslOptions() const {return sslOptions;};
+    virtual const mqtt::connect_options& getConnectionOptions() const { return connectionOptions; };
+
 private:
     std::string serverAddress;
     std::string clientId;

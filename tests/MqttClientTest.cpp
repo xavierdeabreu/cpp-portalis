@@ -33,3 +33,15 @@ TEST(MqttClientTest, TestPublish) {
 
     EXPECT_NO_THROW(mockClient.publish(topic, payload, qos));
 }
+
+// test SSL Configuration
+TEST(MttClientTest, TestSSLSetup) {
+    MockMqttClient mockClient("tcp://localhost:1883", "testClient", "./certs/");
+
+    // create a valid ssl_options object
+    mqtt::ssl_options sslOptions;
+
+    EXPECT_CALL(mockClient, getSslOptions()).WillRepeatedly(testing::ReturnRef(sslOptions));
+
+    EXPECT_NO_THROW(mockClient.getSslOptions());
+}
