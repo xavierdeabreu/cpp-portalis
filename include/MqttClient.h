@@ -4,10 +4,11 @@
 #include <mqtt/client.h>
 #include <spdlog/spdlog.h>
 #include <string>
+#include <map>
 
 class MqttClient {
 public:
-    MqttClient(const std::string& serverAddress, const std::string& clientId, const std::string& certsDir);
+    MqttClient(const std::string& serverAddress, const std::string& clientId, const std::map<std::string, std::string>& certs);
     virtual ~MqttClient() = default; // virtual destructure for proper cleanup 
 
     virtual void connect();
@@ -22,12 +23,11 @@ public:
 private:
     std::string serverAddress;
     std::string clientId;
-    std::string certsDir;
     mqtt::client client;
     mqtt::ssl_options sslOptions;
     mqtt::connect_options connectionOptions;
 
-    void setupSSL();
+    void setupSSL(const std::map<std::string, std::string>& config);
 };
 
 #endif // MQTTCLIENT_H

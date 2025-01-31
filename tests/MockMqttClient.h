@@ -1,13 +1,13 @@
 #ifndef MOCK_MQTT_CLIENT_H
 #define MOCK_MQTT_CLIENT_H
 
-#include "cpp-portalis/MqttClient.h"
+#include "MqttClient.h"
 #include <gmock/gmock.h>
 
 class MockMqttClient : public MqttClient {
     public:
-        MockMqttClient(const std:: string& serverAddress, const std::string& clientId, const std::string& certsDir)
-            : MqttClient(serverAddress, clientId, certsDir) {}
+        MockMqttClient(const std:: string& serverAddress, const std::string& clientId, const std::map<std::string, std::string>& certs)
+            : MqttClient(serverAddress, clientId, certs) {}
 
         // mocking standard MQTT functions
         MOCK_METHOD(void, connect, (), (override));
@@ -21,4 +21,4 @@ class MockMqttClient : public MqttClient {
 
 };
 
-#endif // MOCK_MQTT_CLIENT_Hß
+#endif // MOCK_MQTT_CLIENT_H

@@ -1,24 +1,28 @@
-#include "cpp-portalis/MqttClient.h"
+#include "MqttClient.h"
 #include <mqtt/message.h>
 
 
 // create and initialise mqtt client
-MqttClient::MqttClient(const std::string& serverAddress, const std::string& clientId, const std::string& certsDir)
-    : serverAddress(serverAddress), clientId(clientId), certsDir(certsDir), client(serverAddress, clientId) {
-        setupSSL();
+MqttClient::MqttClient(const std::string& serverAddress, const std::string& clientId, const std::map<std::string, std::string>& certs)
+    : serverAddress(serverAddress), clientId(clientId), client(serverAddress, clientId) {
+        setupSSL(certs);
 }
 
-void MqttClient::setupSSL() {
+void MqttClient::setupSSL(const std::map<std::string, std::string>& certs) {
+    std::string caCert = certs.at("ca_cert");
+    std::string clientCert = certs.at("client_cert");
+    std::string privateKey = certs.at("private_key");
+
     // configure SSL Options
-    sslOptions.set_trust_store(certsDir + "AmazonRootCA1.pem");
-    sslOptions.set_key_store(certsDir + "device.pem.crt");
-    sslOptions.set_private_key(certsDir + "private.pem.key");
+    sslOptions.set_trust_store(caCert);
+    sslOptions.set_key_store(clientCert);
+    sslOptions.set_private_key(privateKey);
 
     // set the SLL options in the connection options
     connectionOptions.set_ssl(sslOptions);
     connectionOptions.set_clean_session(true);
 
-    spdlog::info("SSL setup completed.");
+    spdlog::info("SSL setup completed with certificates loaded from config.");
 }
 
 void MqttClient::connect() {

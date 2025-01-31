@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Find the necessary packages
 find_package(PahoMqttCpp REQUIRED)
 find_package(spdlog REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 # Include directories for headers
 include_directories(${CMAKE_SOURCE_DIR}/include)
@@ -28,6 +29,7 @@ target_link_libraries(${PROJECT_NAME}
     PahoMqttCpp::paho-mqttpp3
     ${PahoMqttC_LIB}
     spdlog::spdlog
+    yaml-cpp
 )
 
 # Enable testing
