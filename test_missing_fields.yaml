@@ -1,0 +1,3 @@
+
+aws_iot:
+  endpoint: "test-endpoint"

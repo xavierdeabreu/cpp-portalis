@@ -3,15 +3,12 @@
 
 
 // create and initialise mqtt client
-MqttClient::MqttClient(const std::string& serverAddress, const std::string& clientId, const std::map<std::string, std::string>& certs)
+MqttClient::MqttClient(const std::string& serverAddress, const std::string& clientId, const std::string& caCert, const std::string& clientCert, const std::string& privateKey)
     : serverAddress(serverAddress), clientId(clientId), client(serverAddress, clientId) {
-        setupSSL(certs);
+        setupSSL(caCert, clientCert, privateKey);
 }
 
-void MqttClient::setupSSL(const std::map<std::string, std::string>& certs) {
-    std::string caCert = certs.at("ca_cert");
-    std::string clientCert = certs.at("client_cert");
-    std::string privateKey = certs.at("private_key");
+void MqttClient::setupSSL(const std::string& caCert, const std::string& clientCert, const std::string& privateKey) {
 
     // configure SSL Options
     sslOptions.set_trust_store(caCert);

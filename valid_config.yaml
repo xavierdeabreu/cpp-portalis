@@ -1,0 +1,10 @@
+
+aws_iot:
+  endpoint: "test-endpoint"
+  client_id: "test-client-id"
+  topics:
+    "test/topic1": 1
+    "test/topic2": 0
+  ca_cert: "./test_certs/ca.pem"
+  client_cert: "./test_certs/cert.pem"
+  private_key: "./test_certs/key.pem"

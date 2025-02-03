@@ -8,7 +8,7 @@
 
 class MqttClient {
 public:
-    MqttClient(const std::string& serverAddress, const std::string& clientId, const std::map<std::string, std::string>& certs);
+    MqttClient(const std::string& serverAddress, const std::string& clientId, const std::string& caCert, const std::string& clientCert, const std::string& privateKey);
     virtual ~MqttClient() = default; // virtual destructure for proper cleanup 
 
     virtual void connect();
@@ -27,7 +27,7 @@ private:
     mqtt::ssl_options sslOptions;
     mqtt::connect_options connectionOptions;
 
-    void setupSSL(const std::map<std::string, std::string>& config);
+    void setupSSL(const std::string& caCert, const std::string& clientCert, const std::string& privateKey);
 };
 
 #endif // MQTTCLIENT_H

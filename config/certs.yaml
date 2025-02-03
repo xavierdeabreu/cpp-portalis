@@ -1,3 +1,0 @@
-ca_cert: "./certs/AmazonRootCA1.pem"
-client_cert: "./certs/device.pem.crt"
-private_key: "./certs/private.pem.key"

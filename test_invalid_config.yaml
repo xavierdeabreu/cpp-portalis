@@ -1,0 +1,4 @@
+
+aws_iot:
+  endpoint: 12345
+  client_id: true

@@ -1,0 +1,16 @@
+aws_iot
+  # aws IoT Configuration
+  endpoint: "your-aws-iot-endpoint"
+  client_id: "your_client_id"
+
+  # topics to subscribe
+  topics:
+    # topics are mapped to a QoS level
+    "topic/one": 1
+    "topic/two": 1
+    "topic/three": 1
+
+  # certificates file paths 
+  ca_cert: "./certs/AmazonRootCA1.pem"
+  client_cert: "./certs/device.pem.crt"
+  private_key: "./certs/private.pem.key"  

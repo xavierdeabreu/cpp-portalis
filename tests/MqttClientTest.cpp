@@ -1,15 +1,13 @@
-# include <gtest/gtest.h>
-# include "MockMqttClient.h"
+#include <gtest/gtest.h>
+#include "MockMqttClient.h"
 
 // Test mqtt client connection
 TEST(MqttClientTest, TestConnection) {
-    std::map<std::string, std::string> mockCerts = {
-        {"ca_cert", "./certs/test_CA.pem"},
-        {"client_cert", "./certs/test_client.pem"},
-        {"private_key", "./certs/test_key.pem"}
-    };
+    std::string ca_cert = "./certs/test_CA.pem";
+    std::string client_cert = "./certs/test_client.pem";
+    std::string private_key = "./certs/test_key.pem";
 
-    MockMqttClient mockClient("tcp://localhost:1883", "testClient", mockCerts);
+    MockMqttClient mockClient("tcp://localhost:1883", "testClient", ca_cert, client_cert, private_key);
     EXPECT_CALL(mockClient, connect()).Times(1);
     EXPECT_CALL(mockClient, disconnect()).Times(1);
 
@@ -19,13 +17,11 @@ TEST(MqttClientTest, TestConnection) {
 
 // test for the subscribe method
 TEST(MqttClientTest, TestSubscribed) {
-    std::map<std::string, std::string> mockCerts = {
-        {"ca_cert", "./certs/test_CA.pem"},
-        {"client_cert", "./certs/test_client.pem"},
-        {"private_key", "./certs/test_key.pem"}
-    };
+    std::string ca_cert = "./certs/test_CA.pem";
+    std::string client_cert = "./certs/test_client.pem";
+    std::string private_key = "./certs/test_key.pem";
 
-    MockMqttClient mockClient("tcp://localhost:1883", "testClient", mockCerts);
+    MockMqttClient mockClient("tcp://localhost:1883", "testClient", ca_cert, client_cert, private_key);
     std::string topic = "testTopic";
     int qos = 1;
 
@@ -36,13 +32,11 @@ TEST(MqttClientTest, TestSubscribed) {
 
 // test for the publish method
 TEST(MqttClientTest, TestPublish) {
-    std::map<std::string, std::string> mockCerts = {
-        {"ca_cert", "./certs/test_CA.pem"},
-        {"client_cert", "./certs/test_client.pem"},
-        {"private_key", "./certs/test_key.pem"}
-    };
+    std::string ca_cert = "./certs/test_CA.pem";
+    std::string client_cert = "./certs/test_client.pem";
+    std::string private_key = "./certs/test_key.pem";
 
-    MockMqttClient mockClient("tcp://localhost:1883", "testClient", mockCerts);
+    MockMqttClient mockClient("tcp://localhost:1883", "testClient", ca_cert, client_cert, private_key);
     std::string topic = "testTopic";
     std::string payload = "Hello, MQTT!";
     int qos = 1;
@@ -54,13 +48,11 @@ TEST(MqttClientTest, TestPublish) {
 
 // test SSL Configuration
 TEST(MttClientTest, TestSSLSetup) {
-    std::map<std::string, std::string> mockCerts = {
-        {"ca_cert", "./certs/test_CA.pem"},
-        {"client_cert", "./certs/test_client.pem"},
-        {"private_key", "./certs/test_key.pem"}
-    };
+    std::string ca_cert = "./certs/test_CA.pem";
+    std::string client_cert = "./certs/test_client.pem";
+    std::string private_key = "./certs/test_key.pem";
 
-    MockMqttClient mockClient("tcp://localhost:1883", "testClient", mockCerts);
+    MockMqttClient mockClient("tcp://localhost:1883", "testClient", ca_cert, client_cert, private_key);
     
     // create a valid ssl_options object
     mqtt::ssl_options sslOptions;
@@ -72,13 +64,11 @@ TEST(MttClientTest, TestSSLSetup) {
 
 // test Reconnection Logic
 TEST(MqttClientTest, TestReconnection) {
-    std::map<std::string, std::string> mockCerts = {
-        {"ca_cert", "./certs/test_CA.pem"},
-        {"client_cert", "./certs/test_client.pem"},
-        {"private_key", "./certs/test_key.pem"}
-    };
+    std::string ca_cert = "./certs/test_CA.pem";
+    std::string client_cert = "./certs/test_client.pem";
+    std::string private_key = "./certs/test_key.pem";
 
-    MockMqttClient mockClient("tcp://localhost:1883", "testClient", mockCerts);
+    MockMqttClient mockClient("tcp://localhost:1883", "testClient", ca_cert, client_cert, private_key);
 
     EXPECT_CALL(mockClient, disconnect()).Times(1);
     EXPECT_CALL(mockClient, connect()).Times(1);

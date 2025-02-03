@@ -6,8 +6,8 @@
 
 class MockMqttClient : public MqttClient {
     public:
-        MockMqttClient(const std:: string& serverAddress, const std::string& clientId, const std::map<std::string, std::string>& certs)
-            : MqttClient(serverAddress, clientId, certs) {}
+        MockMqttClient(const std:: string& serverAddress, const std::string& clientId, const std::string& caCert, const std::string& clientCert, const std::string& privateKey)
+            : MqttClient(serverAddress, clientId, caCert, clientCert, privateKey) {}
 
         // mocking standard MQTT functions
         MOCK_METHOD(void, connect, (), (override));
