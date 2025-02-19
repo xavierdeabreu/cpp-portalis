@@ -11,6 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 find_package(PahoMqttCpp REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(yaml-cpp REQUIRED)
+find_package(jsoncpp REQUIRED)
+find_package(open62541 REQUIRED)
 
 # Include directories for headers
 include_directories(${CMAKE_SOURCE_DIR}/include)
@@ -20,6 +22,8 @@ set(SOURCES
     src/main.cpp
     src/MqttClient.cpp
     src/AwsIoTConfig.cpp
+    src/MesageProcessor.cpp
+    src/OPCUAClient.cpp
 )
 
 # Add the executable
@@ -31,6 +35,8 @@ target_link_libraries(${PROJECT_NAME}
     ${PahoMqttC_LIB}
     spdlog::spdlog
     yaml-cpp
+    jsoncpp
+    open62541
 )
 
 # Enable testing
