@@ -75,12 +75,21 @@ bool OPCUAClient::readNode(const std::string& nodeID, Json::Vale& outValue) {
         return false;
     }
 
-    // ensure the read value is scalar and of a supported type
-    if (UA_Variant_isScalar(&value) && value.type == &UA_TYPES[UA_TYPES_DOUBLE]) {
-        outValue = value.data ? *static_cast<double*>(value.data) : 0.0;
-    } else {
-        std::cerr << "Unsupported daa type for node: " << nodeId << std::endl;
-        return false;
+    // checks whether the read value is a scalar
+    if (UA_Variant_isScalar(&value)) {
+        if (value.type == &UA_TYPES[UA_TYPES_DOUBLE]) {
+            outValue = value.data ? *static_cast<double*>(value.data) : 0.0;
+        } else if (value.type == &UA_TYPES[UA_TYPES_INT32]) {
+            outValue = value.data ? *static_cast<int32_t*>(value.data) : 0;
+        } else if (value.type == &UA_TYPES[UA_TYPES_BOOLEAN]) {
+            outValue = value.data ? *static_cast<bool*>(value.data) : false;
+        } else if (value.type == &UA_TYPES[UA_TYPES_STRING]) {
+            outValue = value.data ? std::string((char*)(((UA_String*)value.data)->data), ((UA_String*)value.data)->length) : "";
+        }
+        else {
+            std::cerr << "Unsupported scalar data type for node: " << nodeId << std::endl;
+            return false;
+        }
     }
 
     // clear the UA_Variant to free from allocated memory
